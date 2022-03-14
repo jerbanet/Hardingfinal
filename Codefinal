@@ -47,7 +47,7 @@ surveynabyrow<-apply(pretrialsurvey, 1, function(z) sum(is.na(z)))
 sort(surveynabyrow)
 
 #merge the weekly and the ID
-surveyandweeklyusagedat<-merge(pretrialdat,dat,by='ID')
+surveyandweeklyusagedat<-merge(pretrialsurvey,dat,by='ID')
 
 head(pretrialandweeklyusagedat)
 
@@ -57,4 +57,13 @@ hist(surveyandweeklyusagedat$x[surveyandweeklyusagedat$Stimulus==2], xlab="consu
 hist(surveyandweeklyusagedat$x[surveyandweeklyusagedat$Stimulus==3], xlab="consumption", freq=FALSE, col="khaki", main="")
 hist(surveyandweeklyusagedat$x[surveyandweeklyusagedat$Stimulus==4], xlab="consumption", freq=FALSE, col="khaki", main="")
 hist(surveyandweeklyusagedat$x[surveyandweeklyusagedat$Stimulus=="C"], xlab="consumption", freq=FALSE, col="khaki", main="")
+
+#plot(surveyandweeklyusagedat$x,surveyandweeklyusagedat$stimulus)
+install.packages("gamlr")
+library(gamlr)
+surveyandweeklyImputed <- naref(surveyandweeklyusagedat, impute=TRUE)
+#summary(surveyandweeklyImputed)
+library(dplyr)
+controldata <- surveyandweeklyusagedat[which(surveyandweeklyusagedat$Stimulus=="C"),names(surveyandweeklyusagedat) %in% cols]
+
 
