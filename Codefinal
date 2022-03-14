@@ -1,0 +1,33 @@
+
+#First we import all weekly files aggregate them by user ID export them in outpath once aggregate to get weekly usage.
+
+  pathin<-"C:/Users/jerem/Downloads/38_CER Electricity_Gas/CER Gas Revised October 2012/CER_Gas_Data/"
+  pathout<-"C:/Users/jerem/OneDrive/Desktop/Harding class/data final/"
+
+  #create a list of files to import and convert
+  filelist<-list.files(pathin, pattern="GasDataWeek",full.names = TRUE)
+
+  #Loop through the list of files
+  for (filename in filelist) {
+    dat<-read.csv(file = filename)
+
+    #change the from import to export folder keeping same name
+    filename<-sub(pathin,pathout,filename)
+
+    #Sum field usage by ID level in imported frame to get total usage (weekly file)
+    WeeklyUSage<-aggregate(dat$Usage,by=list(ID=dat$ID),FUN=sum)
+
+    #export to pathout
+    write.csv(WeeklyUSage,filename)
+    }
+
+  #check all created files in pathout
+  filelist<-list.files(pathout, pattern="GasDataWeek",full.names = TRUE)
+  dat<-read.csv(filelist[1])
+  head(dat)
+  View(dat)
+  dat<-read.csv(filelist[10])
+  head(dat)
+  View(dat)
+
+
