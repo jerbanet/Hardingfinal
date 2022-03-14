@@ -31,3 +31,9 @@
   View(dat)
 
 
+pretrialdat<-read.csv("C:/Users/jerem/OneDrive/Desktop/Harding class/data final/PRe-trial survey.csv")
+View(WeeklyUSage)
+View(pretrialdat)
+pretrialandweeklyusagedat<-merge(pretrialdat,WeeklyUSage,by='ID')
+View(pretrialandweeklyusagedat)
+View(pretrialandweeklyusagedat)
